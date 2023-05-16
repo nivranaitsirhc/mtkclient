@@ -258,7 +258,13 @@ class DAXFlash(metaclass=LogBase):
                 length = len(param)
                 pos = 0
                 while length > 0:
-                    dsize = min(length, 0x200)
+                    # dsize = min(length, 0x200) # 512 bytes
+                    # dsize = min(length, 0x400) # 1024 bytes
+                    # dsize = min(length, 0x800) # 2048 bytes
+                    # dsize = min(length, 0x1002) # 4098 bytes
+                    # dsize = min(length, 0x2004) # 8196 bytes
+                    # dsize = min(length, 0x2004) # 16392 bytes
+                    dsize = min(length, 0x3FF8) # 16392 bytes
                     if not self.usbwrite(param[pos:pos + dsize]):
                         break
                     pos += dsize
